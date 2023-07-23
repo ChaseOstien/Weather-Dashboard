@@ -1,0 +1,56 @@
+#grad {
+    background-image: linear-gradient(to right, #cdafe0, #1d1045);
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.display-3 {
+    font-weight: bold;
+    color: black;
+}
+
+#grad.container.text-center  {
+    
+}
+
+.display-6.d-grid.gap-2 {
+    border-bottom: 1px solid grey;
+    margin-bottom: 30px;
+}
+
+.btn.btn-primary {
+    margin-bottom: 25px;
+}
+
+#current-day {
+    border: 2px solid grey;
+    height: 250px;
+}
+
+/*#Forecast {
+    border: 1px solid black;
+    height: 350px;
+}*/
+
+#card {
+    width: 190px;
+}
+
+.card-body {
+    margin-left: ;
+}
+
+.col-md-2 {
+    margin-left: 20px;
+    margin-top: 0px;
+    width: 190px;
+}
+
+.h4.mt-3 {
+    font-weight: bold;
+}
+
+.display-6.d-grid.gap-2 {
+    font-weight: bold;
+}
