@@ -9,7 +9,7 @@ var card2 = document.getElementById('card2');
 var card3 = document.getElementById('card3');
 var card4 = document.getElementById('card4');
 var card5 = document.getElementById('card5');
-
+var cards = document.getElementsByClassName('card-body');
 /*cityInput.addEventListener('input', function() {
     var inputText = cityInput.value;
     console.log(inputText);
@@ -59,7 +59,7 @@ function weatherApi() {
                 cityName: cityName.textContent,
                 temp: temp.textContent,
                 wind: wind.textContent,
-                humidity: humidity.textContent
+                humidity: humidity.textContent,
             });
 
             return data;
@@ -67,7 +67,7 @@ function weatherApi() {
 
         .then(function (data) {
             console.log(data);
-            var cards = document.getElementsByClassName('card-body');
+            
             var nextDay = today.add(1, 'day')
 
             for (var i = 0; i < cards.length; i++) {
@@ -87,29 +87,34 @@ function weatherApi() {
                 cards[i].append(futureHumidity);
 
                 nextDay = nextDay.add(1, 'day');
+
+                saveData2({
+                futureDate: futureDate.textContent,
+                futureTemp: futureTemp.textContent,
+                futureWind: futureWind.textContent,
+                button: historyButton.textContent
+                });
+
             }
             return data[i];
     })
 
-
-
         .catch(error => {
             console.error('Error fetching data:', error);
         });
+
 
         var today = dayjs();
         
         var todayFormatted = dayjs().format('MM/DD/YYYY');
 }
 
-function saveData (data) {
-    localStorage.setItem('Weatherdata', JSON.stringify(data));
-    var city = document.getElementById('city-Input').value;
-    historyButton.textContent = city;
-}
+
 
 function loadData (data) {
     const savedData = localStorage.getItem('Weatherdata');
+    const savedData2 = localStorage.getItem('Weatherdata2')
+
     
     if (savedData) {
         const data = JSON.parse(savedData);
@@ -130,7 +135,43 @@ function loadData (data) {
         currentDay.append(wind);
         currentDay.append(humidity);
     }
+
+    if (savedData2) {
+        data = JSON.parse(savedData2);
+
+        //forecast.innerHTML = '';
+        var futureDate = cards[i].getElementsByClassName('futureDate')[0];
+                var futureTemp = cards[i].getElementsByClassName('future-temp')[0];
+                var futureWind = cards[i].getElementsByClassName('future-wind')[0];
+                var futureHumidity = cards[i].getElementsByClassName('future-humidity')[0];
+
+                futureDate.textContent = data.futureDate;
+                futureTemp.textContent = data.futureTemp;
+                futureWind.textContent = data.futureWind;
+                futureHumidity.textContent = data.futureHumidity;
+
+                cards[i].append(futureDate);
+                cards[i].append(futureTemp);
+                cards[i].append(futureWind);
+                cards[i].append(futureHumidity);
+        
+
+    }
 }
+
+
+function saveData (data) {
+    localStorage.setItem('Weatherdata', JSON.stringify(data));
+    var city = document.getElementById('city-Input').value;
+    historyButton.textContent = city;
+
+}
+
+function saveData2 (data) {
+    localStorage.setItem('Weatherdata2', JSON.stringify(data));
+
+}
+
 
 citySubmit.addEventListener('click', weatherApi);
 historyButton.addEventListener('click', loadData);
