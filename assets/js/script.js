@@ -31,6 +31,8 @@ function weatherApi() {
 
     currentDay.innerHTML = '';
 
+    var forecastData = [];
+
     fetch(requestUrl)
         .then(function (response) {
             return response.json();
@@ -88,14 +90,17 @@ function weatherApi() {
 
                 nextDay = nextDay.add(1, 'day');
 
-                saveData2({
+                var forecastItem = {
                 futureDate: futureDate.textContent,
                 futureTemp: futureTemp.textContent,
                 futureWind: futureWind.textContent,
                 button: historyButton.textContent
-                });
+                };
+
+                forecastData.push(forecastItem)
 
             }
+            saveData2(forecastData);
             return data[i];
     })
 
@@ -140,7 +145,8 @@ function loadData (data) {
         data = JSON.parse(savedData2);
 
         //forecast.innerHTML = '';
-        var futureDate = cards[i].getElementsByClassName('futureDate')[0];
+        for ()
+                var futureDate = cards[i].getElementsByClassName('futureDate')[0];
                 var futureTemp = cards[i].getElementsByClassName('future-temp')[0];
                 var futureWind = cards[i].getElementsByClassName('future-wind')[0];
                 var futureHumidity = cards[i].getElementsByClassName('future-humidity')[0];
