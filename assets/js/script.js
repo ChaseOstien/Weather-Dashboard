@@ -118,7 +118,7 @@ function weatherApi() {
 
 function loadData (data) {
     const savedData = localStorage.getItem('Weatherdata');
-    const savedData2 = localStorage.getItem('Weatherdata2')
+    const savedData2 = localStorage.getItem('Weatherdata2');
 
     
     if (savedData) {
@@ -139,13 +139,13 @@ function loadData (data) {
         currentDay.append(temp);
         currentDay.append(wind);
         currentDay.append(humidity);
-    }
+    
 
     if (savedData2) {
         data = JSON.parse(savedData2);
 
         //forecast.innerHTML = '';
-        for ()
+        for (var i = 0; i < cards.length; i++) {
                 var futureDate = cards[i].getElementsByClassName('futureDate')[0];
                 var futureTemp = cards[i].getElementsByClassName('future-temp')[0];
                 var futureWind = cards[i].getElementsByClassName('future-wind')[0];
@@ -161,7 +161,7 @@ function loadData (data) {
                 cards[i].append(futureWind);
                 cards[i].append(futureHumidity);
         
-
+        }
     }
 }
 
@@ -181,6 +181,7 @@ function saveData2 (data) {
 
 citySubmit.addEventListener('click', weatherApi);
 historyButton.addEventListener('click', loadData);
+
 
 
     //$('#currentDay').text(today.format('MM/DD/YYYY'));
