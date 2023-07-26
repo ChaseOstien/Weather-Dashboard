@@ -4,7 +4,6 @@ var history1 = document.getElementById('history-button');
 var clearButton = document.getElementById('clear1');
 var currentDay = document.getElementById('current-day');
 var historyButton;
-//var city = document.getElementById('city-Input').value;
 var forecast = document.getElementById('forecast');
 var card1 = document.getElementById('card1');
 var card2 = document.getElementById('card2');
@@ -24,8 +23,6 @@ var locationIcon;
 var futureIcon;
 var iconCode;
 var locationUrl;
-var today;
-var todayFormatted;
 
 
 
@@ -60,7 +57,8 @@ try {
             locationIcon = document.createElement('img');
             iconCode = data.list[0].weather[0].icon;
             locationUrl = "./assets/img/" + iconCode + ".png";
-            todayFormatted = dayjs().format('MM/DD/YYYY');
+            var today = dayjs();
+            var todayFormatted = dayjs().format('MM/DD/YYYY');
 
 
             cityName.textContent = cityInput + ' (' + todayFormatted + ')';
@@ -90,8 +88,7 @@ try {
 
             forecastData.push(forecastItem1);
             saveData(cityInput, forecastData);
-            
-            today = dayjs();
+
             var nextDay = today.add(1, 'day')
 
             for (var i = 0; i < cards.length; i++) {
@@ -122,8 +119,6 @@ try {
                 var forecastItem2 = {
                 futureDate: futureDate.textContent,
                 futureIcon: futureIcon.src,
-                //futureIcon: futureIcon.height,
-                //futureIcon: futureIcon.width,
                 futureTemp: futureTemp.textContent,
                 futureWind: futureWind.textContent,
                 futureHumidity: futureHumidity.textContent
@@ -134,22 +129,13 @@ try {
                 forecastData.push(forecastItem2)
                 saveData(cityInput, forecastData);
             }
-            //saveData(cityInput, forecastData);
-            //return data;
 
-            setTimeout(function () {
+            /*setTimeout(function () {
                 loadData(cityInput);
-            }, 100);
+            }, 100);*/
 }   catch(error) {
             console.error('Error fetching data:', error);
         };
-    
-        
-
-
-        
-        today = dayjs();
-        todayFormatted = dayjs().format('MM/DD/YYYY');
         
 
         historyButton = document.createElement('button');
@@ -159,21 +145,15 @@ try {
         historyButton.addEventListener('click', async function () {
             loadData(cityInput);
         });
-
-        /*setTimeout(function (){
-            loadData(cityInput);
-        }, 100);*/
         
 }
 
 
 
-//const savedData = JSON.parse(localStorage.getItem('Weatherdata'));
+
 
 
 function loadData (cityInput) {
-    //const savedData = JSON.parse(localStorage.getItem('Weatherdata'));
-    //const savedData2 = localStorage.getItem('Weatherdata2');
     const savedData = JSON.parse(localStorage.getItem('Weatherdata'));
     
     if (savedData && savedData[cityInput]) {
@@ -187,7 +167,7 @@ function loadData (cityInput) {
         wind = document.createElement('h5');
         humidity = document.createElement('h5');
 
-        cityName.textContent = cityData.cityName;
+        cityName.textContent = cityData.data[0].cityName;
         locationIcon.src = cityData.data[0].locationIcon;
         temp.textContent = cityData.data[0].temp;
         wind.textContent = cityData.data[0].wind;
@@ -200,10 +180,6 @@ function loadData (cityInput) {
         currentDay.append(humidity);
     
 
-    /*if (savedData2) {
-        data = JSON.parse(savedData2);*/
-
-        //forecast.innerHTML = '';
         for (var i = 0; i < cards.length; i++) {
                 var futureDate = cards[i].getElementsByClassName('futureDate')[0];
                 var futureIcon = cards[i].getElementsByClassName('futureIcon')[0];
@@ -250,18 +226,4 @@ function saveData2 (data) {
 
 }
 
-//var historyList = document.getElementById('historyList');
-
-
-
-
-
-
 citySubmit.addEventListener('click', weatherApi);
-
-
-    
-
-
-    //$('#currentDay').text(today.format('MM/DD/YYYY'));
-    //data.list[0].dt_txt
