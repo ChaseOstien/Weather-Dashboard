@@ -58,3 +58,13 @@
 .futureDate {
     margin-bottom: 15px;
 }
+
+#currentIcon {
+    height: 40px;
+    width: 60px;
+}
+
+/*.futureIcon {
+    height: 40px;
+    width: 60px;
+}
