@@ -4,7 +4,7 @@ var history1 = document.getElementById('history-button');
 var clearButton = document.getElementById('history1');
 var currentDay = document.getElementById('current-day');
 var historyButton;
-var city = document.getElementById('city-Input').value;
+//var city = document.getElementById('city-Input').value;
 var forecast = document.getElementById('forecast');
 var card1 = document.getElementById('card1');
 var card2 = document.getElementById('card2');
@@ -20,6 +20,7 @@ var futureDate;
 var futureTemp;
 var futureWind;
 var futureHumidity;
+var locationIcon;
 
 
 
@@ -50,21 +51,30 @@ function weatherApi() {
             temp = document.createElement('h5');
             wind = document.createElement('h5');
             humidity = document.createElement('h5');
+            locationIcon = document.createElement('img');
+            iconCode = data.list[0].weather[0].icon;
+            iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            
 
 
             cityName.textContent = cityInput + ' (' + todayFormatted + ')';
             temp.textContent = 'Temp: ' + data.list[0].main.temp + '\u00B0' + 'F';
             wind.textContent = 'Wind: ' + data.list[0].wind.speed + ' MPH';
             humidity.textContent = 'Humidity: ' + data.list[0].main.humidity + ' %';
+            locationIcon.src = iconUrl;
+            locationIcon.width = 150;
+            locationIcon.height = 100;
 
             
             currentDay.append(cityName);
+            currentDay.append(locationIcon);
             currentDay.append(temp);
             currentDay.append(wind);
             currentDay.append(humidity);
 
             var forecastItem1 = {
                 cityName: cityName.textContent,
+                locationIcon: locationIcon.src,
                 temp: temp.textContent,
                 wind: wind.textContent,
                 humidity: humidity.textContent,
@@ -97,6 +107,7 @@ function weatherApi() {
                 futureDate: futureDate.textContent,
                 futureTemp: futureTemp.textContent,
                 futureWind: futureWind.textContent,
+                futureHumidity: futureHumidity.textContent,
                 button: clearButton.textContent
                 };
 
@@ -130,10 +141,11 @@ function weatherApi() {
         });
 }
 
+const savedData = JSON.parse(localStorage.getItem('Weatherdata'));
 
 
 function loadData (cityInput) {
-    const savedData = JSON.parse(localStorage.getItem('Weatherdata'));
+    //const savedData = JSON.parse(localStorage.getItem('Weatherdata'));
     //const savedData2 = localStorage.getItem('Weatherdata2');
 
     
@@ -176,6 +188,7 @@ function loadData (cityInput) {
                 cards[i].append(futureTemp);
                 cards[i].append(futureWind);
                 cards[i].append(futureHumidity);
+                console.log(futureHumidity);
         
             }
         } else {
